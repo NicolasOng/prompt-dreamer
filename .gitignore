@@ -1,3 +1,6 @@
 __pycache__/
 open_ai_key.txt
 data/
+token_usage.json
+difficulty.json
+new_mbpp.json

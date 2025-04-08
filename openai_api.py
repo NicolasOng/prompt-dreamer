@@ -13,9 +13,11 @@ client = OpenAI()
 class OpenAIAPI:
     def __init__(self):
         self.api = "OpenAI"
+        self.token_usage_file = "token_usage.json"
         self.models = {}
         self.history = []
         self.filename = os.environ.get("OPENAI_HIST_FN")
+        self.load_token_usage()
     
     def add_tokens(self, model, token_type, tokens):
         if (model not in self.models): self.models[model] = {}
@@ -37,6 +39,7 @@ class OpenAIAPI:
     
     def chat_prompt(self, prompt):
         response = self.chat_prompt_full(prompt)
+        self.save_token_usage()
         return response.output[0].content[0].text
 
     def write_history(self):
@@ -68,6 +71,17 @@ class OpenAIAPI:
             cost = costs[model]
             print(f"{model}: ${cost}")
 
+    def save_token_usage(self):
+        with open(self.token_usage_file, 'w', encoding='utf-8') as f:
+            json.dump(self.models, f, indent=4)
+    
+    def load_token_usage(self):
+        data = {}
+        if os.path.exists(self.token_usage_file):
+            with open(self.token_usage_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        self.models = data
+    
 if __name__ == "__main__":
     openai_api = OpenAIAPI()
     e = openai_api.full_embedding(["Hello, world!", "Goodbye, world!"])
