@@ -4,3 +4,4 @@ data/
 token_usage.json
 difficulty.json
 new_mbpp.json
+search_history.json
