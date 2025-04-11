@@ -202,5 +202,24 @@ def mbpp_make_extra_test_case(human=False):
         with open("new_mbpp.json", 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)
     print(num_errors)
+
+def prune_new_mbpp():
+    # load the new mbpp dataset
+    with open('new_mbpp.json', 'r') as file:
+        data = json.load(file)
+
+    num_new_tests = 0
+    new_data = []
+    # go through each question
+    for i, q in enumerate(data):
+        if q["new_test"] is None: continue
+        num_new_tests += 1
+        new_data.append(q)
+        print(i)
+        with open("new_trimmed_mbpp.json", 'w', encoding='utf-8') as f:
+            json.dump(new_data, f, indent=4)
+    print(f"{num_new_tests}/{len(data)}")
+
 openai.print_costs()
-mbpp_make_extra_test_case(human=True)
+
+prune_new_mbpp()
