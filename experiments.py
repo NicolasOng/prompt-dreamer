@@ -61,7 +61,7 @@ def run_multi_experiment(train, test):
         if test_qa_pair(qa, prompt):
             num_correct += 1
         num_total += 1
-    print(f"{num_correct}/{num_total}")
+    print(f"Prompt test results: {num_correct}/{num_total}")
     
 
 if __name__ == "__main__":

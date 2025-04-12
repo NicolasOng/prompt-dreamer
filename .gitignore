@@ -7,3 +7,17 @@ new_mbpp.json
 search_history.json
 libraries/
 prompt_library.json
+graphs/
+
+aqua_m_libraries/
+aqua_s_libraries/
+mbpp_m_libraries/
+mbpp_m_libraries2/
+mbpp_s_libraries/
+aqua_multi_search_history.json
+aqua_s_prompt_library.json
+aqua_single_search_history.json
+mbpp_multi_search_history.json
+mbpp_s_prompt_library.json
+mbpp_m_prompt_library.json
+mbpp_single_search_history.json
