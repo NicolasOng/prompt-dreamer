@@ -21,18 +21,21 @@ mbpp_m_fitness = [
 def visualize_fitness(fitness, dataset):
     # Convert to NumPy array for easier manipulation
     fitness_array = np.array(fitness)
+    iterations = np.arange(fitness_array.shape[0])
 
     # Compute average, min, and max per column
-    average = np.mean(fitness_array, axis=0)
-    min_vals = np.min(fitness_array, axis=0)
-    max_vals = np.max(fitness_array, axis=0)
+    average = np.mean(fitness_array, axis=1)
+    min_vals = np.min(fitness_array, axis=1)
+    max_vals = np.max(fitness_array, axis=1)
 
     # Plotting
-    x = np.arange(fitness_array.shape[1])
+    x = np.arange(fitness_array.shape[0])
 
     plt.figure(figsize=(10, 6))
-    for i, row in enumerate(fitness_array):
-        plt.plot(x, row, linestyle='--', alpha=0.4, label=f'Prompt {i+1}')
+    
+    for i in range(len(fitness[0])):
+        individual_fitness = fitness_array[:, i]
+        plt.plot(iterations, individual_fitness, linestyle='--', alpha=0.4, label=f'Prompt {i+1}')
 
     plt.plot(x, average, color='blue', label='Average', linewidth=2)
     plt.plot(x, min_vals, color='green', linestyle=':', label='Min', linewidth=2)
@@ -45,6 +48,8 @@ def visualize_fitness(fitness, dataset):
     plt.grid(True)
     plt.tight_layout()
     plt.show()
+
+
 
 visualize_fitness(aqua_m_fitness, "aqua")
 visualize_fitness(mbpp_m_fitness, "mbpp")
